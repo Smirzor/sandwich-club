@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.sandwiches_listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 launchDetailActivity(position);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchDetailActivity(int position) {
         Intent intent = new Intent(this, DetailActivity.class);
+
         intent.putExtra(DetailActivity.EXTRA_POSITION, position);
         startActivity(intent);
     }
