@@ -64,14 +64,15 @@ public class JsonUtils {
         }
 
         /* Example JSON block
-        {"name":
-            {"mainName":"<placeholder>",
-             "alsoKnownAs":["<placeholder>",<placeholder>"]},
-         "placeOfOrigin":"<placeholder>",
-         "description":"<placeholder>",
-         "image":"<imagelink>",
-         "ingredients":
-             ["<placeholder>","<placeholder>","<placeholder>"]
+         *   {"name":
+         *       {"mainName":"<placeholder>",
+         *        "alsoKnownAs":["<placeholder>",<placeholder>"]},
+         *    "placeOfOrigin":"<placeholder>",
+         *    "description":"<placeholder>",
+         *    "image":"<imagelink>",
+         *    "ingredients":
+         *       ["<placeholder>","<placeholder>","<placeholder>"]
+         *   }
         */
 
         /* creating a sandwich object to store the JSON array data in */

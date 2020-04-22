@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +18,7 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 import org.json.JSONException;
 
 import java.util.List;
-// TODO loading marker
-// TODO gradle clean
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
@@ -73,11 +72,10 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /* create one string from string list */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private String textListToTextViewString (List<String> texts) {
         String text = "";
         if (texts.size() > 0){
-            text = String.join(", ", texts);
+            text = TextUtils.join(", ", texts);
         }
         return text;
     }
@@ -91,7 +89,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /* populate all views with sandwich data */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fillViews(Sandwich sandwich){
         setTitle(checkIfEmpty(sandwich.getMainName()));
 
@@ -102,7 +99,6 @@ public class DetailActivity extends AppCompatActivity {
                 textListToTextViewString(sandwich.getIngredients())));
         dDescriptionTextView.setText(checkIfEmpty(sandwich.getDescription()));
 
-        ingredientsIv.setTooltipText(sandwich.getImage());
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -110,18 +106,18 @@ public class DetailActivity extends AppCompatActivity {
 
     /* async task where JSON data is loaded */
     public class FetchSandwichDataTask extends AsyncTask<Intent, Void, Sandwich> {
+
         @Override
         protected Sandwich doInBackground(Intent... intents) {
             intents[0] = getIntent();
-            Intent intent = intents[0];
             Sandwich sandwich = null;
 
-            if (intent == null) {
+            if (intents[0] == null) {
                 closeOnError();
                 return null;
             }
             else {
-                int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
+                int position = intents[0].getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
                 if (position == DEFAULT_POSITION) {
                     // EXTRA_POSITION not found in intent
                     closeOnError();
@@ -148,7 +144,6 @@ public class DetailActivity extends AppCompatActivity {
             return sandwich;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(Sandwich sandwich) {
             if (sandwich != null) {
