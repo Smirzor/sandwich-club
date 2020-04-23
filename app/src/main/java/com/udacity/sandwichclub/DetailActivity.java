@@ -99,9 +99,13 @@ public class DetailActivity extends AppCompatActivity {
                 textListToTextViewString(sandwich.getIngredients())));
         dDescriptionTextView.setText(checkIfEmpty(sandwich.getDescription()));
 
+
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.loading_error)
                 .into(ingredientsIv);
+
     }
 
     /* async task where JSON data is loaded */

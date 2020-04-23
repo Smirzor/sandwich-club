@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class JsonUtils {
 
+    final static String ITEM_NOT_FOUND = "unknown";
+
     /* converts JSON array to string array list */
     private static ArrayList<String> JSONArrayToStringArrayList(JSONArray json) {
         ArrayList<String> stringArrayList = new ArrayList<String>();
@@ -79,16 +81,16 @@ public class JsonUtils {
         Sandwich selectedSandwich = new Sandwich();
 
         /* parsing JSON data to sandwich props */
-        JSONObject name = sandwichJSON.getJSONObject(SA_NAMELIST);
+        JSONObject name = sandwichJSON.optJSONObject(SA_NAMELIST);
 
-        selectedSandwich.setMainName(name.getString(SA_MAINNAME));
-        selectedSandwich.setPlaceOfOrigin(sandwichJSON.getString(SA_ORIGIN));
+        selectedSandwich.setMainName(name.optString(SA_MAINNAME, ITEM_NOT_FOUND));
+        selectedSandwich.setPlaceOfOrigin(sandwichJSON.optString(SA_ORIGIN, ITEM_NOT_FOUND));
         selectedSandwich.setAlsoKnownAs(
-                JSONArrayToStringArrayList(name.getJSONArray(SA_ALSOKNOWN)));
+                JSONArrayToStringArrayList(name.optJSONArray(SA_ALSOKNOWN)));
         selectedSandwich.setIngredients(
-                JSONArrayToStringArrayList(sandwichJSON.getJSONArray(SA_INGREDIENTS)));
-        selectedSandwich.setDescription(sandwichJSON.getString(SA_DESCRIPTION));
-        selectedSandwich.setImage(sandwichJSON.getString(SA_IMAGELINK));
+                JSONArrayToStringArrayList(sandwichJSON.optJSONArray(SA_INGREDIENTS)));
+        selectedSandwich.setDescription(sandwichJSON.optString(SA_DESCRIPTION, ITEM_NOT_FOUND));
+        selectedSandwich.setImage(sandwichJSON.optString(SA_IMAGELINK, ITEM_NOT_FOUND));
 
         return selectedSandwich;
     }
